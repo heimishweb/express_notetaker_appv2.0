@@ -17,7 +17,7 @@ const blahblah = JSON.stringify(notedatabase);
 module.exports = function (app) {
     app.get("/api/notes", function (req, res) {
         // var parsedData = Object.create(null)
-        fs.readFile("../db/db.json", "utf8", function (error, data) {
+        fs.readFile(__dirname + "../db/db.json", "utf8", function (error, data) {
             // parsedData = JSON.stringify(data); //problem, not parsing into JSON format
             //res.send(data); //sends in string form, not in JSON format..
             if (error) {
@@ -40,7 +40,7 @@ module.exports = function (app) {
         console.log(notedatabase)
         res.json(true)
         notedatabaseString = JSON.stringify(notedatabase)
-        fs.writeFile("../db/db.json", notedatabaseString, function (err) {
+        fs.writeFile(__dirname + "../db/db.json", notedatabaseString, function (err) {
             if (err) {
                 return console.log(err);
             }
@@ -57,7 +57,7 @@ module.exports = function (app) {
         var array;
         var idToFind = req.params.id;
         //1.find index
-        fs.readFile("../db/db.json", "utf8", function (error, data) {
+        fs.readFile(__dirname + "../db/db.json", "utf8", function (error, data) {
             array = JSON.parse(data);
             console.log(array[0].id + "<--array id") //test
             for (i = 0; i < array.length; i++) {
