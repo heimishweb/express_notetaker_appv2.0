@@ -17,7 +17,8 @@ const blahblah = JSON.stringify(notedatabase);
 module.exports = function (app) {
     app.get("/api/notes", function (req, res) {
         // var parsedData = Object.create(null)
-        fs.readFile(__dirname + "../db/db.json", "utf8", function (error, data) {
+     
+        fs.readFile(path.join(__dirname, "../db/db.json"), "utf8", function (error, data) {
             // parsedData = JSON.stringify(data); //problem, not parsing into JSON format
             //res.send(data); //sends in string form, not in JSON format..
             if (error) {
@@ -40,7 +41,7 @@ module.exports = function (app) {
         console.log(notedatabase)
         res.json(true)
         notedatabaseString = JSON.stringify(notedatabase)
-        fs.writeFile(__dirname + "../db/db.json", notedatabaseString, function (err) {
+        fs.writeFile(path.join(__dirname, "../db/db.json"), notedatabaseString, function (err) {
             if (err) {
                 return console.log(err);
             }
@@ -57,7 +58,7 @@ module.exports = function (app) {
         var array;
         var idToFind = req.params.id;
         //1.find index
-        fs.readFile(__dirname + "../db/db.json", "utf8", function (error, data) {
+        fs.readFile(path.join(__dirname, "../db/db.json"), "utf8", function (error, data) {
             array = JSON.parse(data);
             console.log(array[0].id + "<--array id") //test
             for (i = 0; i < array.length; i++) {
@@ -71,7 +72,7 @@ module.exports = function (app) {
                     // console.log("with removed index array is: " + JSON.stringify(array))
 
                     //write spliced array into the db.json
-                    fs.writeFile("../db/db.json", splicedArray, function (err) {
+                    fs.writeFile(path.join(__dirname, "../db/db.json"), splicedArray, function (err) {
                         if (err) {
                             return console.log(err);
                         }
